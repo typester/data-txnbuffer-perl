@@ -2,8 +2,28 @@ NAME
     Data::TxnBuffer - Module abstract (<= 44 characters) goes here
 
 SYNOPSIS
-      use Data::TxnBuffer;
-      blah blah blah
+    use Data::TxnBuffer;
+
+    # create buffer my $buf = Data::TxnBuffer->new; # or create buffer from
+    some data my $buf = Data::TxnBuffer->new( data => $data );
+
+    # read some data use Try::Tiny; try { my $u32 = $buf->read_u32; # read
+    unsigned int my $bytes = $buf->read(10); # read 10 bytes
+
+        $buf->spin; # all data received. clear these data from buffer.
+    } catch {
+        $buf->reset; # reset read cursor. try again later
+    };
+
+    # or more easy way. this way automatically call spin or reset method
+    like above. try { $buf->txn_read(sub { my $u32 = $buf->read_u32; # read
+    unsigned int my $bytes = $buf->read(10); # read 10 bytes }); } catch { #
+    try again later };
+
+    # write some data to filehandle or buffer $buf->write_u32(100);
+    $buf->write("Hello World");
+
+    # got written data and reset buffer my $data = $buf->spin;
 
 DESCRIPTION
     Stub documentation for this module was created by ExtUtils::ModuleMaker.

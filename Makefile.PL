@@ -9,4 +9,7 @@ author_tests 'xt';
 
 auto_set_repository;
 
+use_ppport 3.19;
+cc_src_paths 'src';
+
 WriteAll;
