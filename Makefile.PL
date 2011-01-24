@@ -11,7 +11,19 @@ author_tests 'xt';
 
 auto_set_repository;
 
-use_ppport 3.19;
-cc_src_paths 'src';
+if (want_xs()) {
+    use_ppport 3.19;
+    cc_src_paths 'src';
+
+    # repeat testing
+    # see also ExtUtils::MM_Any::test_via_harness()
+    my $test_pp = q{$(FULLPERLRUN) -MExtUtils::Command::MM -e}
+                    .q{ "do 't/force_pp.pl'; test_harness($(TEST_VERBOSE), '$(INST_LIB)', '$(INST_ARCHLIB)')"}
+                    .q{ $(TEST_FILES)} . "\n";
+
+    postamble qq{test_dynamic :: pp\n\n}
+            . qq{pp ::\n}
+            . qq{\t} . $test_pp;
+}
 
 WriteAll;

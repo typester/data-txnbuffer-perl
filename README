@@ -2,28 +2,44 @@ NAME
     Data::TxnBuffer - Module abstract (<= 44 characters) goes here
 
 SYNOPSIS
-    use Data::TxnBuffer;
-
-    # create buffer my $buf = Data::TxnBuffer->new; # or create buffer from
-    some data my $buf = Data::TxnBuffer->new( data => $data );
-
-    # read some data use Try::Tiny; try { my $u32 = $buf->read_u32; # read
-    unsigned int my $bytes = $buf->read(10); # read 10 bytes
-
-        $buf->spin; # all data received. clear these data from buffer.
-    } catch {
-        $buf->reset; # reset read cursor. try again later
-    };
-
-    # or more easy way. this way automatically call spin or reset method
-    like above. try { $buf->txn_read(sub { my $u32 = $buf->read_u32; # read
-    unsigned int my $bytes = $buf->read(10); # read 10 bytes }); } catch { #
-    try again later };
-
-    # write some data to filehandle or buffer $buf->write_u32(100);
-    $buf->write("Hello World");
-
-    # got written data and reset buffer my $data = $buf->spin;
+        use Data::TxnBuffer;
+    
+        # create buffer
+        my $buf = Data::TxnBuffer->new;
+        # or create buffer from some data
+        my $buf = Data::TxnBuffer->new( data => $data );
+    
+        # read some data
+        use Try::Tiny;
+        try {
+            my $u32   = $buf->read_u32; # read unsigned int
+            my $bytes = $buf->read(10); # read 10 bytes
+    
+            $buf->spin; # all data received. clear these data from buffer.
+        } catch {
+            $buf->reset; # reset read cursor. try again later
+        };
+    
+        # or more easy way. this way automatically call spin or reset method like above.
+        try {
+            $buf->txn_read(sub {
+                my $u32   = $buf->read_u32; # read unsigned int
+                my $bytes = $buf->read(10); # read 10 bytes
+            });
+        } catch {
+            # try again later
+        };
+    
+    
+        # write some data to filehandle or buffer
+        $buf->write_u32(100);
+        $buf->write("Hello World");
+    
+        # got written data
+        my $data = $buf->data;
+    
+        # clear all data from buffer
+        $buf->clear;
 
 DESCRIPTION
     Stub documentation for this module was created by ExtUtils::ModuleMaker.
@@ -32,6 +48,45 @@ DESCRIPTION
 
     Blah blah blah.
 
+CLASS METHOD
+  my $buf = Data::TxnBuffer->new($data);
+    Create a Data::TxnBuffer object. If you passed some $data, create buffer
+    from the data.
+
+ACCESSORS
+  $buf->cursor
+  $buf->data
+BASIC METHODS
+  $buf->read($bytes)
+  $buf->write($data)
+  $buf->spin
+  $buf->reset
+  $buf->clear
+TRANSACTION READ
+  $buf->txn_read($code)
+READ/WRITE HELPER METHODS
+  $buf->read_u32
+  $buf->read_u24
+  $buf->read_u16
+  $buf->read_u8
+  $buf->read_i32
+  $buf->read_i24
+  $buf->read_i16
+  $buf->read_i8
+  $buf->write_u32
+  $buf->write_u24
+  $buf->write_u16
+  $buf->write_u8
+  $buf->write_i32
+  $buf->write_i24
+  $buf->write_i16
+  $buf->write_i8
+  $buf->read_n32
+  $buf->read_n24
+  $buf->read_n16
+  $buf->write_n32
+  $buf->write_n24
+  $buf->write_n16
 AUTHOR
     Daisuke Murase <typester@cpan.org>
 
