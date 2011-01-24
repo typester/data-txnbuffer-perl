@@ -3,9 +3,31 @@ use strict;
 use warnings;
 use XSLoader;
 
+use Try::Tiny;
+
 our $VERSION = '0.01';
 
 XSLoader::load __PACKAGE__, $VERSION;
+
+sub txn_read {
+    my ($self, $code) = @_;
+
+    my ($ret, $err);
+    try {
+        $code->($self);
+        $ret = $self->spin;
+    } catch {
+        $err = $_;
+        $self->reset;
+    };
+
+    if ($err) {
+        # rethrow
+        die $err;
+    }
+
+    $ret;
+}
 
 1;
 
