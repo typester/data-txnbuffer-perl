@@ -66,6 +66,9 @@ ACCESSORS
   $buf->data
     Return buffer's whole data.
 
+  $buf->length
+    Return buffer's data length. (bytes)
+
 BASIC METHODS
   $buf->read($bytes)
     Read $bytes data from buffer and return the data. If there's not enough

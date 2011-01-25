@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use parent 'Data::TxnBuffer::Base';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 our $BACKEND;
 unless ($ENV{PERL_ONLY}) {
