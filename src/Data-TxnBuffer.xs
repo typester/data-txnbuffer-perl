@@ -416,6 +416,16 @@ CODE:
     buffer_reset(b);
 }
 
+int
+length(SV* sv_obj)
+CODE:
+{
+    BUFARGS;
+    RETVAL = b->used > 0 ? b->used - 1 : 0;
+}
+OUTPUT:
+    RETVAL
+
 void
 write(SV* sv_obj, SV* sv_buf)
 CODE:

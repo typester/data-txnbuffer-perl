@@ -22,6 +22,11 @@ sub data {
     $self->{data};
 }
 
+sub length {
+    my ($self) = @_;
+    CORE::length($self->{data});
+}
+
 sub cursor {
     my ($self) = @_;
     $self->{cursor};
@@ -60,7 +65,7 @@ sub read {
     if ($len <= 0) {
         croak sprintf 'Positive value is required for read len. got: %d', $len;
     }
-    if ($self->cursor + $len > length $self->data) {
+    if ($self->cursor + $len > $self->length) {
         croak 'No enough data in buffer';
     }
 
@@ -245,6 +250,7 @@ See L<Data::TxnBuffer> for more detail.
 =head2 clear
 =head2 cursor
 =head2 data
+=head2 length
 =head2 new
 =head2 read
 =head2 read_i16

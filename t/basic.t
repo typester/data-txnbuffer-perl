@@ -14,11 +14,14 @@ subtest 'basic functions' => sub {
     is $b->data, 'foo', 'write foo ok';
     is $b->read(3), 'foo', 'read 3 byte ok';
 
+    is $b->length, 3, 'buffer length ok';
+
     is $b->cursor, 3, 'cursor ok';
     $b->reset;
     is $b->cursor, 0, 'cursor reset ok';
     is $b->read(3), 'foo', 're-read 3 byte ok';
     is $b->spin, 'foo', 'spin res ok';
+    is $b->length, 0, 'length ok';
 
     $b->write('foo');
     $b->write('bar');

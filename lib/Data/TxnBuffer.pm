@@ -100,6 +100,10 @@ Return buffer read cursor point. This value increase by C<read> methods automati
 
 Return buffer's whole data.
 
+=head2 $buf->length
+
+Return buffer's data length. (bytes)
+
 =head1 BASIC METHODS
 
 =head2 $buf->read($bytes)
