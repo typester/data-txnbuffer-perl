@@ -3,6 +3,9 @@ name 'Data-TxnBuffer';
 all_from 'lib/Data/TxnBuffer.pm';
 readme_from 'lib/Data/TxnBuffer.pm';
 
+perl_version '5.008';
+
+requires 'parent';
 requires 'Try::Tiny';
 
 test_requires 'Test::More' => '0.88';
