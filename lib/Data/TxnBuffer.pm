@@ -12,9 +12,6 @@ unless ($ENV{PERL_ONLY}) {
         XSLoader::load(__PACKAGE__, $VERSION);
         $BACKEND = 'XS';
     };
-    if ($@) {
-        die $@;
-    }
 }
 
 unless (__PACKAGE__->can('new')) {
