@@ -706,3 +706,53 @@ CODE:
 OUTPUT:
     RETVAL
 
+void
+write_float(SV* sv_obj, float n)
+CODE:
+{
+    BUFARGS;
+    buffer_append_string_len(b, (const char*)&n, 4);
+}
+
+float
+read_float(SV* sv_obj)
+CODE:
+{
+    BUFARGS;
+    if (context->cursor + 4 >= b->used) {
+        croak("No enough data in buffer for read\n");
+    }
+
+    float n = *((float*)(b->ptr + context->cursor));
+    context->cursor += 4;
+
+    RETVAL = n;
+}
+OUTPUT:
+    RETVAL
+
+void
+write_double(SV* sv_obj, double n)
+CODE:
+{
+    BUFARGS;
+    buffer_append_string_len(b, (const char*)&n, 8);
+}
+
+double
+read_double(SV* sv_obj)
+CODE:
+{
+    BUFARGS;
+    if (context->cursor + 8 >= b->used) {
+        croak("No enough data in buffer for read\n");
+    }
+
+    double n = *((double*)(b->ptr + context->cursor));
+    context->cursor += 8;
+
+    RETVAL = n;
+}
+OUTPUT:
+    RETVAL
+

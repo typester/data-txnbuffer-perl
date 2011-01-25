@@ -1,6 +1,7 @@
 package Data::TxnBuffer::PP;
 use strict;
 use warnings;
+use parent 'Data::TxnBuffer::Base';
 
 use Carp;
 
@@ -206,6 +207,26 @@ sub read_n16 {
     unpack 'n', $self->read(2);
 }
 
+sub write_float {
+    my ($self, $n) = @_;
+    $self->write(pack 'f', $n);
+}
+
+sub read_float {
+    my ($self) = @_;
+    unpack 'f', $self->read(4);
+}
+
+sub write_double {
+    my ($self, $n) = @_;
+    $self->write(pack 'd', $n);
+}
+
+sub read_double {
+    my ($self) = @_;
+    unpack 'd', $self->read(8);
+}
+
 1;
 
 __END__
@@ -237,6 +258,8 @@ See L<Data::TxnBuffer> for more detail.
 =head2 read_u24
 =head2 read_u32
 =head2 read_u8
+=head2 read_double
+=head2 read_float
 =head2 reset
 =head2 spin
 =head2 write
@@ -251,6 +274,8 @@ See L<Data::TxnBuffer> for more detail.
 =head2 write_u24
 =head2 write_u32
 =head2 write_u8
+=head2 write_double
+=head2 write_float
 
 =head1 AUTHOR
 

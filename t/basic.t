@@ -187,4 +187,20 @@ subtest 'network order u16' => sub {
     done_testing;
 };
 
+subtest 'float/double' => sub {
+    my $b = Data::TxnBuffer->new;
+
+    $b->write_float(0.123);
+    is int($b->read_float * 1000), 123, 'read 0.123 ok';
+
+    $b->write_double(0.12345);
+    is int($b->read_double * 100000), 12345, 'read 0.12345 ok';
+
+    $b->spin;
+
+    ok !$b->data, 'buffer empty ok';
+
+    done_testing;
+};
+
 done_testing;
