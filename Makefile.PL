@@ -14,7 +14,7 @@ author_tests 'xt';
 
 auto_set_repository;
 
-if (want_xs()) {
+if ($^O ne 'MSWin32' and want_xs()) {
     use_ppport 3.19;
     cc_src_paths 'src';
 
