@@ -248,39 +248,73 @@ See L<Data::TxnBuffer> for more detail.
 =head1 METHODS
 
 =head2 clear
+
 =head2 cursor
+
 =head2 data
+
 =head2 length
+
 =head2 new
+
 =head2 read
+
 =head2 read_i16
+
 =head2 read_i24
+
 =head2 read_i32
+
 =head2 read_i8
+
 =head2 read_n16
+
 =head2 read_n24
+
 =head2 read_n32
+
 =head2 read_u16
+
 =head2 read_u24
+
 =head2 read_u32
+
 =head2 read_u8
+
 =head2 read_double
+
 =head2 read_float
+
 =head2 reset
+
 =head2 spin
+
 =head2 write
+
 =head2 write_i16
+
 =head2 write_i24
+
 =head2 write_i32
+
 =head2 write_i8
+
 =head2 write_n16
+
 =head2 write_n24
+
 =head2 write_n32
+
 =head2 write_u16
+
 =head2 write_u24
+
 =head2 write_u32
+
 =head2 write_u8
+
 =head2 write_double
+
 =head2 write_float
 
 =head1 AUTHOR
